@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native'
 import { createBottomTabNavigator, createAppContainer } from "react-navigation";
+import { FontAwesome } from '@expo/vector-icons'
 
 const Hello = () => {
   return (
@@ -21,9 +22,15 @@ const Goodbye = () => {
 const Tabs = createBottomTabNavigator({
   Hello: {
     screen: Hello,
+    navigationOptions: {
+      tabBarIcon: () => <FontAwesome name='handshake-o' size={30} color='black' />
+    }
   },
   Goodbye: {
     screen: Goodbye,
+    navigationOptions: {
+      tabBarIcon: () => <FontAwesome name='hand-peace-o' size={30} color='black' />
+    }
   },
 })
 
