@@ -1,12 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native'
-import { createBottomTabNavigator, createAppContainer } from "react-navigation";
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { createBottomTabNavigator, createAppContainer, createStackNavigator } from "react-navigation";
 import { FontAwesome } from '@expo/vector-icons'
 
-const Hello = () => {
+const Hello = ({ navigation }) => {
   return (
     <View style={styles.item}>
       <Text>Hello!</Text>
+
+      {/* For StackNavigator */}
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Goodbye')}>
+        <Text>Say Goodbye</Text>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -18,6 +24,25 @@ const Goodbye = () => {
     </View>
   )
 }
+
+const Stack = createStackNavigator({
+  Hello: {
+    screen: Hello,
+    navigationOptions: {
+      title: 'Hello'
+    }
+  },
+  Goodbye: {
+    screen: Goodbye,
+    navigationOptions: {
+      title: 'Goodbye',
+      headerTintColor: 'red',
+      headerStyle: {
+        backgroundColor: 'green'
+      }
+    }
+  }
+})
 
 const Tabs = createBottomTabNavigator({
   Hello: {
@@ -35,7 +60,8 @@ const Tabs = createBottomTabNavigator({
 })
 
 // Required by React Navigation v3
-const AppContainer = createAppContainer(Tabs)
+//const AppContainer = createAppContainer(Tabs)
+const AppContainer = createAppContainer(Stack)
 
 export default class App extends React.Component {
   render() {
