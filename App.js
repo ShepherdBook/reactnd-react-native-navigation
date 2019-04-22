@@ -1,21 +1,50 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native'
+import { createBottomTabNavigator, createAppContainer } from "react-navigation";
+
+const Hello = () => {
+  return (
+    <View style={styles.item}>
+      <Text>Hello!</Text>
+    </View>
+  )
+}
+
+const Goodbye = () => {
+  return (
+    <View style={styles.item}>
+      <Text>Goodbye!</Text>
+    </View>
+  )
+}
+
+const Tabs = createBottomTabNavigator({
+  Hello: {
+    screen: Hello,
+  },
+  Goodbye: {
+    screen: Goodbye,
+  },
+})
+
+// Required by React Navigation v3
+const AppContainer = createAppContainer(Tabs)
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
+      <View style={{flex: 1}}>
+        <View style={{height: 20}}></View>
+        <AppContainer />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  item: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
-  },
-});
+    alignItems: 'center'
+  }
+})
