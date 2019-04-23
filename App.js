@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { createBottomTabNavigator, createAppContainer, createStackNavigator } from "react-navigation";
+import { createBottomTabNavigator, createAppContainer, createStackNavigator, createDrawerNavigator } from "react-navigation";
 import { FontAwesome } from '@expo/vector-icons'
 
 const Hello = ({ navigation }) => {
@@ -13,17 +13,38 @@ const Hello = ({ navigation }) => {
         onPress={() => navigation.navigate('Goodbye')}>
         <Text>Say Goodbye</Text>
       </TouchableOpacity>
+
+      {/* For DrawerNavigator */}
+      <TouchableOpacity
+        onPress={() => navigation.toggleDrawer()}>
+        <Text>Open Drawer</Text>
+      </TouchableOpacity>
     </View>
   )
 }
 
-const Goodbye = () => {
+const Goodbye = ({ navigation }) => {
   return (
     <View style={styles.item}>
       <Text>Goodbye!</Text>
+
+      {/* For DrawerNavigator */}
+      <TouchableOpacity
+        onPress={() => navigation.toggleDrawer()}>
+        <Text>Open Drawer</Text>
+      </TouchableOpacity>
     </View>
   )
 }
+
+const Drawer = createDrawerNavigator({
+  Hello: {
+    screen: Hello
+  },
+  Goodbye: {
+    screen: Goodbye
+  }
+})
 
 const Stack = createStackNavigator({
   Hello: {
@@ -61,7 +82,8 @@ const Tabs = createBottomTabNavigator({
 
 // Required by React Navigation v3
 //const AppContainer = createAppContainer(Tabs)
-const AppContainer = createAppContainer(Stack)
+//const AppContainer = createAppContainer(Stack)
+const AppContainer = createAppContainer(Drawer)
 
 export default class App extends React.Component {
   render() {
